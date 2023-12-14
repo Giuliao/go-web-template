@@ -2,11 +2,16 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
+	ginlogrus "github.com/toorop/gin-logrus"
+
 	"my.net/module/api"
 )
 
 func main() {
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Recovery())
+	r.Use(ginlogrus.Logger(logrus.New()))
 
 	api.Register(r)
 
